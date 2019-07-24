@@ -3,12 +3,14 @@
 
         <h1 class="centralizado">{{ titulo }}</h1>
 
+        <input type="search" class="filtro" v-on:input="filtro = $event.target.value" placeholder="Filtro">
+
         <ul class="lista-fotos">
 
-            <li class="lista-fotos-item" v-for="foto in fotos">
+            <li class="lista-fotos-item" v-for="foto in fotosComFiltro">
 
                 <meu-painel :titulo="foto.titulo">
-                    <img class="imagem-responsiva" :src="foto.url" :alt="foto.titulo">
+                    <imagem-responsiva :url="foto.url" :titulo="foto.titulo"></imagem-responsiva>
                 </meu-painel>
 
             </li>
@@ -19,17 +21,20 @@
 
 <script>
     import Painel from './components/shared/painel/Painel';
+    import ImagemResponsiva from './components/shared/imagem-responsiva/ImagemResponsiva';
 
     export default {
         components: {
             'meu-painel': Painel,
+            'imagem-responsiva': ImagemResponsiva,
         },
         data() {
 
             return {
 
                 titulo: 'Alurapic',
-                fotos: []
+                fotos: [],
+                filtro: '',
             }
         },
 
@@ -37,7 +42,18 @@
             this.$http.get('http://localhost:3000/v1/fotos')
                 .then(res => res.json())
                 .then(fotos => this.fotos = fotos, error => console.log(error));
-        }
+        },
+
+        computed: {
+            fotosComFiltro() {
+                if (this.filtro) {
+                    let exp = new RegExp(this.filtro.trim(), 'i')
+                    return this.fotos.filter(foto => exp.test(foto.titulo))
+                }
+
+                return this.fotos
+            },
+        },
     }
 
 </script>
@@ -62,8 +78,8 @@
         display: inline-block;
     }
 
-    .imagem-responsiva {
+    .filtro {
+        display: block;
         width: 100%;
     }
-
 </style>

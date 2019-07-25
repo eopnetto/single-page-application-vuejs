@@ -51,7 +51,6 @@
         box-shadow: 5px 5px 5px black;
     }
 
-
     .painel-fade-enter, .painel-fade-leave-active {
         opacity: 0
     }

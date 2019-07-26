@@ -1,6 +1,6 @@
-# single-page-application-vuejs
+# Single Page Application Vuejs
 
-> A Vue.js project
+> A SPA built based on the course "Vue.js parte 1: construindo Single Page Applications" from `Allura`
 
 ## Build Setup
 
@@ -14,5 +14,3 @@ npm run dev
 # build for production with minification
 npm run build
 ```
-
-For detailed explanation on how things work, consult the [docs for vue-loader](http://vuejs.github.io/vue-loader).
